@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tabiat — Oʻzbekiston landshaftlari</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;800&family=Newsreader:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3f6f1;--ink:#14231b;--muted:#4d5f55;--card:#e4ece3;--line:#c5d3c6;--accent:#2f7d4f;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#0f1812;--ink:#e6efe7;--muted:#a3b5a8;--card:#18261d;--line:#2b3f31;--accent:#6fcf97;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#0f1812;--ink:#e6efe7;--muted:#a3b5a8;--card:#18261d;--line:#2b3f31;--accent:#6fcf97;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.1rem/1.65 "Newsreader",Georgia,serif}
+h1,h2,h3,.tab{font-family:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif}
+a,button{font:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+/* HERO */
+.hero{--sky1:#9fd8c0;--sky2:#e9f5df;--far:#5aa078;--mid:#2f7d4f;--near:#173f2a;--sun:#fff3b0;
+  position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;
+  background:linear-gradient(var(--sky1),var(--sky2));color:#0c1d13;overflow:hidden;transition:background .6s}
+.hero[data-eco="tog"]{--sky1:#a9c4e8;--sky2:#eef3fa;--far:#8da3c4;--mid:#5a7399;--near:#2c3e5c;--sun:#fff;}
+.hero[data-eco="suv"]{--sky1:#7cc3d9;--sky2:#e2f4f2;--far:#4fa3b8;--mid:#2a7f96;--near:#134a5c;--sun:#fff6c4}
+.hero[data-eco="chol"]{--sky1:#f0b873;--sky2:#fbe8c4;--far:#d99a58;--mid:#b8743a;--near:#7a4420;--sun:#fff0c2}
+.scene{position:absolute;inset:auto 0 0 0;width:100%;height:52%;display:block}
+.scene path{transition:d .7s ease,fill .6s}
+.sun{position:absolute;top:14%;right:12%;width:clamp(70px,12vw,140px);aspect-ratio:1;border-radius:50%;background:var(--sun);transition:background .6s,transform 1s}
+nav{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:1.2rem clamp(1rem,5vw,3.5rem)}
+nav b{font:800 1.2rem "Bricolage Grotesque",sans-serif}
+.theme{background:#ffffff66;border:1px solid #0c1d1344;color:#0c1d13;border-radius:99px;padding:.35rem .9rem;cursor:pointer}
+.hero-body{position:relative;z-index:2;padding:0 clamp(1rem,5vw,3.5rem) 3rem;max-width:62rem}
+h1{font-size:clamp(3rem,11vw,8rem);line-height:.92;margin:0 0 1rem;font-weight:800;letter-spacing:-.03em}
+.lead{max-width:34rem;font-size:1.25rem;margin:0 0 1.6rem;min-height:5.6em}
+.tabs{display:flex;flex-wrap:wrap;gap:.5rem}
+.tab{border:2px solid #0c1d13;background:transparent;color:#0c1d13;border-radius:99px;padding:.5rem 1.2rem;cursor:pointer;font-weight:500;font-size:1rem;transition:background .2s,color .2s}
+.tab[aria-selected="true"]{background:#0c1d13;color:#fff}
+
+/* SECTIONS */
+main section{padding:5rem clamp(1rem,5vw,3.5rem);max-width:70rem;margin:auto}
+h2{font-size:clamp(2rem,5vw,3.2rem);margin:0 0 1rem;line-height:1.05;letter-spacing:-.02em}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1.2rem;margin-top:2rem}
+.fact{background:var(--card);border-radius:1.2rem;padding:1.4rem}
+.fact h3{margin:0 0 .4rem;font-size:1.15rem}
+.fact p{margin:0;color:var(--muted);font-size:1rem}
+.big{font:800 clamp(2.4rem,6vw,3.6rem)/1 "Bricolage Grotesque",sans-serif;color:var(--accent)}
+.life{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.2rem}
+.life span{border:1px solid var(--line);border-radius:99px;padding:.3rem .9rem;font-size:1rem}
+
+.care{border-top:1px solid var(--line)}
+.checks{list-style:none;padding:0;margin:1.5rem 0;display:grid;gap:.7rem}
+.checks label{display:flex;gap:.9rem;align-items:center;background:var(--card);padding:1rem 1.2rem;border-radius:1rem;cursor:pointer}
+.checks input{width:1.4rem;height:1.4rem;accent-color:var(--accent)}
+.bar{height:.9rem;border-radius:99px;background:var(--card);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .5s}
+#msg{color:var(--muted);margin-top:.8rem}
+footer{padding:2.5rem clamp(1rem,5vw,3.5rem);text-align:center;color:var(--muted);border-top:1px solid var(--line)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="hero" id="hero" data-eco="oʻrmon">
+  <div class="sun" id="sun"></div>
+  <nav><b>Tabiat</b><button class="theme" id="theme" type="button">Qorongʻi rejim</button></nav>
+  <div class="hero-body">
+    <h1 id="title">Oʻrmon</h1>
+    <p class="lead" id="lead"></p>
+    <div class="tabs" role="tablist" aria-label="Landshaftni tanlang" id="tabs"></div>
+  </div>
+  <svg class="scene" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+    <path id="p1" fill="var(--far)"/><path id="p2" fill="var(--mid)"/><path id="p3" fill="var(--near)"/>
+  </svg>
+</header>
+
+<main>
+  <section id="info" aria-live="polite">
+    <h2 id="h2">Oʻrmon haqida</h2>
+    <div class="big" id="big"></div>
+    <p id="bigtxt" style="max-width:38rem;margin:.4rem 0 0"></p>
+    <div class="facts" id="facts"></div>
+    <div class="life" id="life"></div>
+  </section>
+
+  <section class="care">
+    <h2>Tabiatni asrash: bugun nima qila olasiz?</h2>
+    <p style="max-width:38rem;color:var(--muted)">Kichik odatlar yigʻilib katta natija beradi. Bajargan ishlaringizni belgilang.</p>
+    <ul class="checks" id="checks"></ul>
+    <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="barwrap"><i id="bar"></i></div>
+    <p id="msg"></p>
+  </section>
+</main>
+<footer>Tabiat — Oʻzbekiston landshaftlari haqida kichik sayt.</footer>
+
+<script>
+const ECO = {
+  orm: {key:"orm", tab:"Oʻrmon", title:"Oʻrmon",
+    lead:"Amudaryo boʻylarida toʻqay oʻrmonlari oʻsadi: tol, jiyda va turangil bilan qoplangan yashil yoʻlak.",
+    big:"≈ 20 kg", bigtxt:"Bitta yetuk daraxt yiliga taxminan shuncha uglerod dioksidini yutadi.",
+    facts:[["Toʻqay","Daryo boʻyidagi oʻrmon boʻlib, suv toshqinlariga moslashgan."],["Hayot uyi","Oʻrmon qushlarga uya, hasharotlar va hayvonlarga boshpana beradi."],["Tuproq himoyasi","Ildizlar tuproqni yuvilish va eroziyadan saqlaydi."]],
+    life:["Tol","Jiyda","Turangil","Fazan","Shoqol"],
+    p:["M0 260 Q150 180 300 240 T600 220 T900 250 T1200 200 V400 H0Z","M0 300 Q200 220 400 290 T800 270 T1200 280 V400 H0Z","M0 350 Q250 300 500 340 T1000 330 T1200 345 V400 H0Z"]},
+  tog: {key:"tog", tab:"Togʻlar", title:"Togʻlar",
+    lead:"Tyan-Shan va Hisor tizmalari Oʻzbekistonning sharqi va janubida koʻtariladi; qor va muzliklar daryolarga suv beradi.",
+    big:"4643 m", bigtxt:"Xazrati Sulton — Hisor tizmasidagi Oʻzbekistonning eng baland choʻqqisi.",
+    facts:[["Suv minorasi","Togʻlardagi qor erib, yoz boʻyi daryolarni toʻldiradi."],["Balandlik zonalari","Etakda dasht, yuqorida archazor, undan tepada alp oʻtloqlari bor."],["Noyob jonivor","Qor qoploni va togʻ echkisi baland qoyalarda yashaydi."]],
+    life:["Qor qoploni","Togʻ echkisi","Archa","Qoyatosh burguti"],
+    p:["M0 220 L180 90 L300 190 L460 40 L640 200 L820 80 L1000 190 L1200 110 V400 H0Z","M0 290 L150 170 L320 270 L520 130 L720 270 L940 150 L1200 260 V400 H0Z","M0 350 Q300 300 600 345 T1200 335 V400 H0Z"]},
+  suv: {key:"suv", tab:"Daryo va koʻllar", title:"Suv",
+    lead:"Amudaryo va Sirdaryo choʻl oʻrtasidan hayot oqizadi. Orol dengizi esa suv qadri haqidagi eng katta saboq.",
+    big:"1960-yillar", bigtxt:"Shu davrdan boshlab Orol dengizi maydonining koʻp qismini yoʻqotdi.",
+    facts:[["Daryo vodiysi","Dehqonchilik va shaharlar asosan daryo suviga tayanadi."],["Qirgʻoq jonivorlari","Aydar-Arnasay koʻllarida baliq va koʻchmanchi qushlar koʻp."],["Tejash","Tomchilatib sugʻorish suvni sezilarli kamaytiradi."]],
+    life:["Sazan","Pelikan","Qamish","Qoʻton"],
+    p:["M0 280 Q150 250 300 280 T600 270 T900 285 T1200 265 V400 H0Z","M0 320 Q150 290 300 320 T600 310 T900 325 T1200 305 V400 H0Z","M0 360 Q150 335 300 360 T600 350 T900 362 T1200 345 V400 H0Z"]},
+  chol: {key:"chol", tab:"Choʻl", title:"Choʻl",
+    lead:"Qizilqum — «qizil qum» degan ma’noni anglatadi. Tinch koʻringani bilan, bu yerda hayot jazirama va tungi sovuqqa moslashgan.",
+    big:"Saksovul", bigtxt:"Choʻlda qum koʻchishini toʻxtatadigan va hayvonlarga soya beradigan asosiy daraxt.",
+    facts:[["Moslashuv","Oʻsimliklar chuqur ildiz otadi, hayvonlar kechasi faol."],["Jayron","Dasht va choʻlda yashaydigan tez yuguruvchi ohu."],["Qum barxanlari","Shamol ularni yiliga bir necha metrga siljitadi."]],
+    life:["Saksovul","Jayron","Choʻl toshbaqasi","Oʻrgimchak"],
+    p:["M0 300 Q200 250 400 295 T800 280 T1200 300 V400 H0Z","M0 335 Q250 285 500 330 T1000 320 T1200 330 V400 H0Z","M0 370 Q300 335 600 365 T1200 360 V400 H0Z"]}
+};
+const HABITS=["Tishni yuvayotganda suvni yopib qoʻyish","Bir marta ishlatiladigan paketdan voz kechish","Chiqindini turlarga ajratish","Yaqin joyga piyoda yoki velosipedda borish","Bitta daraxt yoki gul koʻchati ekish"];
+const $=id=>document.getElementById(id);
+let current="orm";
+
+function show(k){
+  const e=ECO[k]; current=k;
+  $("hero").dataset.eco=k;
+  $("title").textContent=e.title;
+  $("lead").textContent=e.lead;
+  $("h2").textContent=e.title+" haqida";
+  $("big").textContent=e.big;
+  $("bigtxt").textContent=e.bigtxt;
+  $("facts").innerHTML=e.facts.map(f=>`<div class="fact"><h3>${f[0]}</h3><p>${f[1]}</p></div>`).join("");
+  $("life").innerHTML=e.life.map(x=>`<span>${x}</span>`).join("");
+  ["p1","p2","p3"].forEach((id,i)=>$(id).setAttribute("d",e.p[i]));
+  $("sun").style.transform=k==="chol"?"scale(1.5)":"scale(1)";
+  document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected",b.dataset.k===k));
+}
+const tabs=$("tabs");
+Object.values(ECO).forEach(e=>{
+  const b=document.createElement("button");
+  b.className="tab";b.type="button";b.dataset.k=e.key;b.setAttribute("role","tab");b.textContent=e.tab;
+  b.onclick=()=>show(e.key);tabs.appendChild(b);
+});
+tabs.addEventListener("keydown",ev=>{
+  const keys=Object.keys(ECO);let i=keys.indexOf(current);
+  if(ev.key==="ArrowRight")i=(i+1)%keys.length;else if(ev.key==="ArrowLeft")i=(i+keys.length-1)%keys.length;else return;
+  show(keys[i]);tabs.querySelector(`[data-k="${keys[i]}"]`).focus();
+});
+
+$("checks").innerHTML=HABITS.map((h,i)=>`<li><label><input type="checkbox" data-i="${i}"> ${h}</label></li>`).join("");
+$("checks").addEventListener("change",()=>{
+  const n=document.querySelectorAll("#checks input:checked").length,p=Math.round(n/HABITS.length*100);
+  $("bar").style.width=p+"%";$("barwrap").setAttribute("aria-valuenow",p);
+  $("msg").textContent=n===0?"Hali hech narsa belgilanmadi.":n===HABITS.length?"Ajoyib! Bugun tabiat uchun hammasini qildingiz.":`${n} / ${HABITS.length} ta odat bajarildi.`;
+});
+
+let dark=matchMedia("(prefers-color-scheme: dark)").matches;
+function applyTheme(){document.documentElement.dataset.theme=dark?"dark":"light";$("theme").textContent=dark?"Yorugʻ rejim":"Qorongʻi rejim"}
+$("theme").onclick=()=>{dark=!dark;applyTheme()};
+applyTheme();show("orm");
+</script>
+</body>
+</html>
